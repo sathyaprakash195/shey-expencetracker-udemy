@@ -45,6 +45,10 @@ function TransactionsTable({
       },
     },
     {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
       title: "Type",
       dataIndex: "type",
     },

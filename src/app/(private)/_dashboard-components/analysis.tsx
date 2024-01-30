@@ -7,9 +7,9 @@ function Analysis({ transactions }: { transactions: TransactionType[] }) {
   const COLORS = [
     "#0088FE",
     "#00C49F",
-    "#FFBB28",
+    "#A94438",
     "#FF8042",
-    "#12372A",
+    "#6DA4AA",
     "#637A9F",
     "#A94438",
     "#6DA4AA",
@@ -36,8 +36,6 @@ function Analysis({ transactions }: { transactions: TransactionType[] }) {
         transaction.amount;
     }
   });
-
-  console.log(finalAnalysisData);
 
   let incomeAnalysisArray: any[] = [];
 
@@ -82,52 +80,62 @@ function Analysis({ transactions }: { transactions: TransactionType[] }) {
   return (
     <div className="mt-7">
       <div className="flex flex-col gap-5">
-        {analysisdataToRender.map((analysisData) => (
-          <div className="border border-gray-300 border-solid rounded-sm p-5">
-            <h1 className="text-center text-lg text-gray-600">
-              {analysisData.title}
-            </h1>
-            <div className="grid grid-cols-2 capitalize items-center">
-              <PieChart width={800} height={400}>
-                <Pie
-                  data={analysisData.data}
-                  cx={250}
-                  cy={200}
-                  innerRadius={80}
-                  outerRadius={120}
-                  fill="#8884d8"
-                  paddingAngle={5}
-                  dataKey="value"
-                  label={(entry) =>
-                    `${entry.name} (${entry.value.toFixed(2)}%)`
-                  }
-                >
-                  {analysisData.data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
+        {analysisdataToRender.map(
+          (analysisData) =>
+            analysisData.data.length > 0 && (
+              <div className="border border-gray-300 border-solid rounded-sm p-5">
+                <h1 className="text-center text-lg text-gray-600">
+                  {analysisData.title}
+                </h1>
+                <div className="grid grid-cols-2 capitalize items-center">
+                  <PieChart width={800} height={400}>
+                    <Pie
+                      data={analysisData.data}
+                      cx={300}
+                      cy={200}
+                      innerRadius={80}
+                      outerRadius={120}
+                      fill="#8884d8"
+                      paddingAngle={5}
+                      dataKey="value"
+                      label={(entry) =>
+                        `${entry.name} (${entry.value.toFixed(2)}%)`
+                      }
+                    >
+                      {analysisData.data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
 
-              <div className="flex flex-col gap-5">
-                {analysisData.data.map((entry, index) => (
-                  <div className="grid grid-cols-3 w-full text-sm text-gray-600">
-                    <div className="flex gap-2 items-center">
-                      <div
-                        className="w-4 h-4 rounded-full"
-                        style={{ backgroundColor: entry.color }}
-                      ></div>
-                      <span>{entry.name}</span>
+                  <div className="flex flex-col gap-5">
+                    <div className="grid grid-cols-3 text-sm font-bold">
+                      <span className="text-gray-600">Category</span>
+                      <span className="text-gray-600">Percentage</span>
+                      <span className="text-gray-600">Amount</span>
                     </div>
 
-                    <span>{entry.value.toFixed(2)}</span>
+                    <hr />
+                    {analysisData.data.map((entry, index) => (
+                      <div className="grid grid-cols-3 w-full text-sm text-gray-600">
+                        <div className="flex gap-2 items-center">
+                          <div
+                            className="w-4 h-4 rounded-full"
+                            style={{ backgroundColor: entry.color }}
+                          ></div>
+                          <span>{entry.name}</span>
+                        </div>
 
-                    <span>$ {entry.amount}</span>
+                        <span>{entry.value.toFixed(2)} %</span>
+
+                        <span>$ {entry.amount}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            )
+        )}
       </div>
     </div>
   );
