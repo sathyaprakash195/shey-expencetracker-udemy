@@ -4,7 +4,7 @@ import DashboardData from "./_dashboard-components/dashboard-data";
 import PageTitle from "@/components/page-title";
 import Loader from "@/components/loader";
 
-async function Homepage({ searchParams } = { searchParams: {} }) {
+async function Homepage({ searchParams }: { searchParams: any }) {
   const suspenseKey = JSON.stringify(searchParams);
   return (
     <div>
@@ -21,9 +21,7 @@ async function Homepage({ searchParams } = { searchParams: {} }) {
         }
         key={suspenseKey}
       >
-        <DashboardData 
-         searchParams={searchParams}
-        />
+        <DashboardData searchParams={searchParams} />
       </Suspense>
     </div>
   );
